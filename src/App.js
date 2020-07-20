@@ -19,34 +19,36 @@ class App extends Component {
     });
   };
 
+  /* 
+  before submiting any item this function will excuse no matter what
+  */
   handleSubmit = (e) => {
+    // preventing default behavior aka refreshing on submitting
     e.preventDefault();
+
+    // creating a new item and then inserting the already existing ID into it and moving the content on "item" to a new field called title.
     const newItem = {
       id: this.state.id,
       title: this.state.item,
     };
 
+    // appending the newItem to a new array called updatedItems with the content of the items array.
     const updatedItems = [...this.state.items, newItem];
-
-    this.setState(
-      {
-        items: updatedItems,
-        item: "",
-        id: uuidv4(),
-        editItem: false,
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+    //setState, where we first update items then resetting item and creating a new iD
+    this.setState({
+      items: updatedItems,
+      item: "",
+      id: uuidv4(),
+      editItem: false,
+    });
   };
 
   clearList = () => {
     console.log("Clear List");
   };
 
-  handleEdit = () => {
-    console.log("Handle Edit");
+  handleEdit = (id) => {
+    console.log(`Handle Edit ${id}`);
   };
 
   handleDelete = (id) => {
