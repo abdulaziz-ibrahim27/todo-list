@@ -13,9 +13,10 @@ class App extends Component {
     editItem: false,
   };
 
+  //updates the input bar
   handleChange = (e) => {
     this.setState({
-      item: e.target.value,
+      item: e.target.value, //
     });
   };
 
@@ -44,15 +45,33 @@ class App extends Component {
   };
 
   clearList = () => {
-    console.log("Clear List");
+    this.setState({
+      items: [],
+    });
   };
 
   handleEdit = (id) => {
     console.log(`Handle Edit ${id}`);
+
+    const filteredItems = this.state.items.filter((item) => item.id !== id);
+
+    const selectedItem = this.state.items.find((item) => item.id === id);
+
+    this.setState({
+      items: filteredItems,
+      item: selectedItem.title,
+      id: id,
+      editItem: true,
+    });
   };
 
   handleDelete = (id) => {
-    console.log(`Handle Delete ${id}`);
+    const filteredItems = this.state.items.filter((item) => {
+      return item.id !== id;
+    });
+    this.setState({
+      items: filteredItems,
+    });
   };
 
   render() {
